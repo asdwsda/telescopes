@@ -8,10 +8,10 @@ require (
 	github.com/banzaicloud/go-gin-prometheus v0.0.0-20190417120951-df9373ad5327
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae
 	github.com/gin-gonic/gin v1.3.0
-	github.com/go-openapi/errors v0.19.0
+	github.com/go-openapi/errors v0.19.0 // indirect
 	github.com/go-openapi/runtime v0.19.0
 	github.com/go-openapi/strfmt v0.19.0
-	github.com/go-openapi/swag v0.19.0
+	github.com/go-openapi/swag v0.19.0 // indirect
 	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/goph/emperror v0.17.1
 	github.com/goph/logur v0.11.0
@@ -27,6 +27,6 @@ require (
 	github.com/stretchr/testify v1.3.0
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
 	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43 // indirect
-	golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6
+	golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2
 )
