@@ -1,0 +1,70 @@
+image: circleci/golang:1.12
+
+variables:
+  GOFLAGS: -mod=readonly
+  GOPATH: "${CI_PROJECT_DIR}/.modcache"
+
+stages:
+  - dependencies
+  - test
+
+dependencies:
+  stage: dependencies
+  cache:
+    key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .modcache
+      - bin
+  before_script:
+    - mkdir .modcache
+  script:
+    - |
+      go mod download
+      make -j bin/golangci-lint bin/licensei bin/gotestsum
+      env
+      ls -lha bin
+  after_script:
+    - |
+      set -x
+      ls -lha .modcache
+
+static-checks:
+  stage: test
+  cache:
+    key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .modcache
+      - bin
+    policy: pull
+  script:
+    - |
+      make license-cache
+      make license-check
+    - |
+      make lint
+
+build:
+  stage: test
+  cache:
+    key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .modcache
+      - bin
+    policy: pull
+  script:
+    - make build
+
+unit-test:
+  stage: test
+  cache:
+    key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .modcache
+      - bin
+    policy: pull
+  script:
+    - make test
+  artifacts:
+    reports:
+      junit:
+        - build/test_resulst/*.xml
