@@ -10,6 +10,11 @@ stages:
 
 dependencies:
   stage: dependencies
+  only:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
@@ -21,16 +26,14 @@ dependencies:
     - |
       go mod download
       make -j bin/golangci-lint bin/licensei bin/gotestsum
-      env
-
-      ls -lha bin
-  after_script:
-    - |
-      set -x
-      ls -lha .modcache
 
 static-checks:
   stage: test
+  only:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
@@ -38,14 +41,17 @@ static-checks:
       - bin
     policy: pull
   script:
-    - |
-      make license-cache
-      make license-check
-    - |
-      make lint
+    - make license-cache
+    - make license-check
+    - make lint
 
 build:
   stage: test
+  only:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
@@ -57,6 +63,11 @@ build:
 
 unit-test:
   stage: test
+  only:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
