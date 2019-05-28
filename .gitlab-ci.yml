@@ -40,10 +40,12 @@ static-checks:
       - .modcache
       - bin
     policy: pull
+  before_script:
+    - go mod download
   script:
+    - make lint
     - make license-cache
     - make license-check
-    - make lint
 
 build:
   stage: test
