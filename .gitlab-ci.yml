@@ -10,11 +10,11 @@ stages:
 
 dependencies:
   stage: dependencies
-  only:
-    refs:
-      - merge_requests
-    variables:
-      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
+  #only:
+  #  refs:
+  #    - merge_requests
+  #  variables:
+  #    - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
@@ -29,11 +29,11 @@ dependencies:
 
 static-checks:
   stage: test
-  only:
-    refs:
-      - merge_requests
-    variables:
-      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
+  #only:
+  #  refs:
+  #    - merge_requests
+  #  variables:
+  #    - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
@@ -47,11 +47,11 @@ static-checks:
 
 build:
   stage: test
-  only:
-    refs:
-      - merge_requests
-    variables:
-      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
+  #only:
+  #  refs:
+  #    - merge_requests
+  #  variables:
+  #    - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
@@ -63,11 +63,11 @@ build:
 
 unit-test:
   stage: test
-  only:
-    refs:
-      - merge_requests
-    variables:
-      - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
+  #only:
+  #  refs:
+  #    - merge_requests
+  #  variables:
+  #    - $CI_MERGE_REQUEST_LABELS =~ /(.*,)?ok-to-test(,.*)?/
   cache:
     key: "${CI_PROJECT_PATH_SLUG}-${CI_COMMIT_REF_SLUG}"
     paths:
